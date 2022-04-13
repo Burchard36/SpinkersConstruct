@@ -1,0 +1,142 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <groupId>com.burchard36.tinkers</groupId>
+    <artifactId>SpinkersConstruct</artifactId>
+    <version>1.0.0-SNAPSHOT</version>
+    <packaging>jar</packaging>
+
+    <name>Spinkers</name>
+
+    <properties>
+        <java.version>16</java.version>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+    </properties>
+
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>net.md-5</groupId>
+                <artifactId>specialsource-maven-plugin</artifactId>
+                <version>1.2.2</version>
+                <executions>
+                    <execution>
+                        <phase>package</phase>
+                        <goals>
+                            <goal>remap</goal>
+                        </goals>
+                        <id>remap-obf</id>
+                        <configuration>
+                            <srgIn>org.spigotmc:minecraft-server:1.18.2-R0.1-SNAPSHOT:txt:maps-mojang</srgIn>
+                            <reverse>true</reverse>
+                            <remappedDependencies>org.spigotmc:spigot:1.18.2-R0.1-SNAPSHOT:jar:remapped-mojang</remappedDependencies>
+                            <remappedArtifactAttached>true</remappedArtifactAttached>
+                            <remappedClassifierName>remapped-obf</remappedClassifierName>
+                        </configuration>
+                    </execution>
+                    <execution>
+                        <phase>package</phase>
+                        <goals>
+                            <goal>remap</goal>
+                        </goals>
+                        <id>remap-spigot</id>
+                        <configuration>
+                            <inputFile>${project.build.directory}/${project.artifactId}-${project.version}-remapped-obf.jar</inputFile>
+                            <srgIn>org.spigotmc:minecraft-server:1.18.2-R0.1-SNAPSHOT:csrg:maps-spigot</srgIn>
+                            <remappedDependencies>org.spigotmc:spigot:1.18.2-R0.1-SNAPSHOT:jar:remapped-obf</remappedDependencies>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <version>3.8.1</version>
+                <configuration>
+                    <source>${java.version}</source>
+                    <target>${java.version}</target>
+                </configuration>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-shade-plugin</artifactId>
+                <version>3.2.4</version>
+                <executions>
+                    <execution>
+                        <phase>package</phase>
+                        <goals>
+                            <goal>shade</goal>
+                        </goals>
+                        <configuration>
+                            <createDependencyReducedPom>false</createDependencyReducedPom>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+        </plugins>
+        <resources>
+            <resource>
+                <directory>src/main/resources</directory>
+                <filtering>true</filtering>
+            </resource>
+        </resources>
+    </build>
+
+    <repositories>
+        <repository>
+            <id>spigot-repo</id>
+            <url>https://hub.spigotmc.org/nexus/content/repositories/snapshots/</url>
+        </repository>
+
+        <!-- JitPack for GitHub projects -->
+        <repository>
+            <id>jitpack.io</id>
+            <!-- This has "www" because: https://stackoverflow.com/questions/54928706/error-in-library-built-with-jitpack-unable-to-resolve-dependency-for-appdebu -->
+            <url>https://www.jitpack.io</url>
+        </repository>
+
+        <repository>
+            <id>dmulloy2-repo</id>
+            <url>https://repo.dmulloy2.net/repository/public/</url>
+        </repository>
+    </repositories>
+
+    <dependencies>
+        <dependency>
+            <groupId>org.spigotmc</groupId>
+            <artifactId>spigot</artifactId>
+            <version>1.18.2-R0.1-SNAPSHOT</version>
+            <classifier>remapped-mojang</classifier>
+            <scope>provided</scope>
+        </dependency>
+        <!-- https://mvnrepository.com/artifact/org.reflections/reflections -->
+        <dependency>
+            <groupId>org.reflections</groupId>
+            <artifactId>reflections</artifactId>
+            <version>0.10.2</version>
+            <scope>compile</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.projectlombok</groupId>
+            <artifactId>lombok</artifactId>
+            <version>1.18.22</version>
+            <scope>provided</scope>
+        </dependency>
+        <!-- My own plugin API -->
+        <dependency>
+            <groupId>com.github.Burchard36</groupId>
+            <artifactId>BurchAPI</artifactId>
+            <version>01-AD-20</version>
+            <scope>compile</scope>
+        </dependency>
+        <dependency>
+            <groupId>com.comphenix.protocol</groupId>
+            <artifactId>ProtocolLib</artifactId>
+            <version>4.7.0</version>
+            <scope>provided</scope>
+        </dependency>
+    </dependencies>
+</project>

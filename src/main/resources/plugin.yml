@@ -1,0 +1,8 @@
+name: SpinkersConstruct
+version: '${version}'
+main: com.burchard36.tinkers.Tinkers
+api-version: 1.18
+authors: [ DaltonBurchard ]
+description: A port of Tinkers Construct to a Spigot plugin
+depend:
+  - ProtocolLib

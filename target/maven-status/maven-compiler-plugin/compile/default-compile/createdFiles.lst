@@ -1,0 +1,12 @@
+com\burchard36\tinkers\Tinkers.class
+com\burchard36\tinkers\block\events\BreakEvent.class
+com\burchard36\tinkers\block\events\PreventStateChange.class
+com\burchard36\tinkers\block\TinkersBlockType.class
+com\burchard36\tinkers\block\blocks\CobaltOre.class
+com\burchard36\tinkers\block\generators\GenerateOreTask$1.class
+com\burchard36\tinkers\block\GenerationUtils.class
+com\burchard36\tinkers\block\TinkersBlock.class
+com\burchard36\tinkers\block\exceptions\TinkersBlockAlreadyRegisteredException.class
+com\burchard36\tinkers\block\BlockRegistry.class
+com\burchard36\tinkers\commands\TinkersCommand.class
+com\burchard36\tinkers\block\generators\GenerateOreTask.class
