@@ -11,7 +11,7 @@ import java.util.concurrent.ThreadLocalRandom;
 
 public class GenerationUtils {
 
-    public static CompletableFuture<Block> getRandomNetherBlock(final Chunk chunk, final boolean runAsync) {
+    public static CompletableFuture<Block> getRandomNetherBlock(final Chunk chunk) {
         final ChunkSnapshot snap = chunk.getChunkSnapshot();
         final ThreadLocalRandom rand = ThreadLocalRandom.current();
         for (int x = 0; x <= 15; x++) {
@@ -29,11 +29,7 @@ public class GenerationUtils {
                                 final int locX = x;
                                 final int locY = y;
                                 final int locZ = z;
-                                if (runAsync) {
-                                    return CompletableFuture.supplyAsync(() -> {
-                                        return chunk.getBlock(locX, locY, locZ);
-                                    });
-                                } else return CompletableFuture.completedFuture(chunk.getBlock(locX, locY, locZ));
+                                return CompletableFuture.supplyAsync(() -> chunk.getBlock(locX, locY, locZ));
                             }
                         }
                         case "AIR" -> {
@@ -47,11 +43,7 @@ public class GenerationUtils {
                                 final int locX = x;
                                 final int locY = y + 1;
                                 final int locZ = z;
-                                if (runAsync) {
-                                    return CompletableFuture.supplyAsync(() -> {
-                                        return chunk.getBlock(locX, locY, locZ);
-                                    });
-                                } else return CompletableFuture.completedFuture(chunk.getBlock(locX, locY, locZ));
+                                return CompletableFuture.supplyAsync(() -> chunk.getBlock(locX, locY, locZ));
                             } else generatingOnSurface = true;
                         }
                     }
@@ -59,20 +51,6 @@ public class GenerationUtils {
             }
         }
 
-        return CompletableFuture.supplyAsync(() -> {
-            return null;
-        });
-    }
-
-    /**
-     * Lets be honest, I yoinked this code from: https://www.spigotmc.org/threads/get-chunk-coordinate-from-location.456619/
-     * it used bit shifts which would be significantly faster
-     *
-     * @param num num to floor, eg -1.9 -> -0.0 and 1.9 -> 1
-     * @return floored int
-     */
-    public static int floor(double num) {
-        int floor = (int) num;
-        return floor == num ? floor : floor - (int) (Double.doubleToRawLongBits(num) >>> 63);
+        return CompletableFuture.supplyAsync(() -> null);
     }
 }

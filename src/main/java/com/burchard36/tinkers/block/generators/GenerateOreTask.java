@@ -9,7 +9,6 @@ import org.bukkit.block.Block;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.world.ChunkLoadEvent;
-import org.bukkit.event.world.ChunkPopulateEvent;
 import org.bukkit.metadata.FixedMetadataValue;
 
 import java.util.List;
@@ -20,11 +19,9 @@ import java.util.concurrent.ForkJoinPool;
 public class GenerateOreTask implements Listener {
 
     private final BlockRegistry registry;
-    private final Random rand;
 
     public GenerateOreTask(final BlockRegistry registry) {
         this.registry = registry;
-        this.rand = new Random();
         this.registry.getPlugin().getServer().getPluginManager().registerEvents(this, this.registry.getPlugin());
     }
 
@@ -47,10 +44,10 @@ public class GenerateOreTask implements Listener {
                         CompletableFuture<Block> futureBlock;
                         if (poolSize > 0) {
                             Logger.log("Pool size greater than0, running async");
-                             futureBlock = GenerationUtils.getRandomNetherBlock(chunk, true);
+                             futureBlock = GenerationUtils.getRandomNetherBlock(chunk);
                         } else {
                             Logger.log("Pool size is 0, running sync");
-                            futureBlock = GenerationUtils.getRandomNetherBlock(chunk, false);
+                            futureBlock = GenerationUtils.getRandomNetherBlock(chunk);
                         }
 
                         final Block block = futureBlock.join();

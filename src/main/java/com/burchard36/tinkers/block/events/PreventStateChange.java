@@ -57,7 +57,6 @@ public record PreventStateChange(BlockRegistry registry) implements Listener {
     public void onChange(final BlockPhysicsEvent event) {
         final Block changedBlock = event.getBlock();
         final Block blockAbove = changedBlock.getLocation().add(0, 1, 0).getBlock();
-
         if (changedBlock.getType() == Material.NOTE_BLOCK) {
             event.setCancelled(true);
             final TinkersBlock block = this.registry.getTinkersBlock(changedBlock);

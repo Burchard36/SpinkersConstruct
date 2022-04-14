@@ -33,12 +33,6 @@ public final class Tinkers extends JavaPlugin implements Listener, Api {
 
     @Override
     public void onEnable() {
-
-        try {
-            setFinalStatic(MinecraftServer.class.getDeclaredField("TPS"), 60);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
         // Plugin startup logic
         Logger.init(this);
 
@@ -86,20 +80,5 @@ public final class Tinkers extends JavaPlugin implements Listener, Api {
     @Override
     public String loggerPrefix() {
         return "TinkersConstructSpigotPort";
-    }
-
-    static void setFinalStatic(Field field, Object newValue) throws Exception {
-        field.setAccessible(true);
-
-        Logger.log("Before TPS: " + MinecraftServer.TPS);
-        Field modifiersField = Unsafe.class.getDeclaredField("theUnsafe");
-        modifiersField.setAccessible(true);
-
-        final Unsafe unsafe = (Unsafe) modifiersField.get(null);
-        final Object unsafeObj = unsafe.staticFieldBase(field);
-        final long tps = unsafe.staticFieldOffset(field);
-
-        unsafe.putIntVolatile(unsafeObj, tps, 100);
-        Logger.log("After TPS: " + MinecraftServer.TPS);
     }
 }
