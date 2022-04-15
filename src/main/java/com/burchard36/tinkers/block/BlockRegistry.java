@@ -7,7 +7,6 @@ import com.burchard36.tinkers.block.exceptions.TinkersBlockAlreadyRegisteredExce
 import com.burchard36.Logger;
 import com.burchard36.tinkers.block.generators.GenerateOreTask;
 import lombok.Getter;
-import org.bukkit.Bukkit;
 import org.bukkit.Instrument;
 import org.bukkit.Note;
 import org.bukkit.World;

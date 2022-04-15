@@ -3,6 +3,7 @@ package com.burchard36.tinkers;
 import com.burchard36.tinkers.block.BlockRegistry;
 import com.burchard36.Api;
 import com.burchard36.Logger;
+import com.burchard36.tinkers.world.island.IslandRegistry;
 import com.comphenix.protocol.ProtocolLib;
 import com.comphenix.protocol.ProtocolLibrary;
 import com.comphenix.protocol.ProtocolManager;
@@ -27,6 +28,8 @@ public final class Tinkers extends JavaPlugin implements Listener, Api {
 
     @Getter
     private BlockRegistry registry;
+    @Getter
+    private IslandRegistry islandRegistry;
 
     @Getter
     private ProtocolManager protocolManager;
@@ -45,6 +48,7 @@ public final class Tinkers extends JavaPlugin implements Listener, Api {
         this.protocolManager = ProtocolLibrary.getProtocolManager();
 
         this.registry = new BlockRegistry(this);
+        this.islandRegistry = new IslandRegistry(this);
         this.getServer().getPluginManager().registerEvents(this, this);
     }
 
