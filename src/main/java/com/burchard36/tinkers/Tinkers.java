@@ -4,14 +4,11 @@ import com.burchard36.tinkers.block.BlockRegistry;
 import com.burchard36.Api;
 import com.burchard36.Logger;
 import com.burchard36.tinkers.world.island.IslandRegistry;
-import com.comphenix.protocol.ProtocolLib;
 import com.comphenix.protocol.ProtocolLibrary;
 import com.comphenix.protocol.ProtocolManager;
 import lombok.Getter;
-import net.minecraft.server.MinecraftServer;
 import org.bukkit.*;
 import org.bukkit.block.data.type.NoteBlock;
-import org.bukkit.craftbukkit.v1_18_R2.CraftServer;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerJoinEvent;
@@ -19,10 +16,6 @@ import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.BlockDataMeta;
 import org.bukkit.inventory.meta.ItemMeta;
 import org.bukkit.plugin.java.JavaPlugin;
-import sun.misc.Unsafe;
-
-import java.lang.reflect.Field;
-import java.lang.reflect.Modifier;
 
 public final class Tinkers extends JavaPlugin implements Listener, Api {
 
@@ -38,6 +31,8 @@ public final class Tinkers extends JavaPlugin implements Listener, Api {
     public void onEnable() {
         // Plugin startup logic
         Logger.init(this);
+
+        this.saveResource("schems/slime_earth_1.schem", false);
 
         if (!this.getServer().getPluginManager().isPluginEnabled("ProtocolLib")) {
             Logger.error("ProtocolLib is required to use this plugin! Please install it.");

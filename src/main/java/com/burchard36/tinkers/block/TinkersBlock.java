@@ -3,11 +3,10 @@ package com.burchard36.tinkers.block;
 import org.bukkit.*;
 import org.bukkit.block.data.BlockData;
 import org.bukkit.inventory.ItemStack;
-import org.bukkit.inventory.meta.BlockDataMeta;
 
 import java.util.List;
-import java.util.Random;
 
+//TODO Maybe make this abstract and make redundant methods already created here eg  matches() and getBlockData()
 public interface TinkersBlock {
 
     ItemStack getItemStack();

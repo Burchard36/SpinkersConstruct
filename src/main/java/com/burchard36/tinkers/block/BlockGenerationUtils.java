@@ -2,14 +2,13 @@ package com.burchard36.tinkers.block;
 
 import org.bukkit.Chunk;
 import org.bukkit.ChunkSnapshot;
-import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.block.Block;
 
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.ThreadLocalRandom;
 
-public class GenerationUtils {
+public class BlockGenerationUtils {
 
     public static CompletableFuture<Block> getRandomNetherBlock(final Chunk chunk) {
         final ChunkSnapshot snap = chunk.getChunkSnapshot();

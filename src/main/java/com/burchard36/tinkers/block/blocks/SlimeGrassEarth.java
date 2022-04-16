@@ -10,45 +10,43 @@ import org.bukkit.inventory.meta.BlockDataMeta;
 import org.bukkit.inventory.meta.ItemMeta;
 
 import java.util.List;
-import java.util.concurrent.ThreadLocalRandom;
 
-public class CobaltOre implements TinkersBlock {
+public class SlimeGrassEarth implements TinkersBlock {
 
     @Override
     public ItemStack getItemStack() {
-        final ItemStack stack = new ItemStack(Material.NOTE_BLOCK);
-        final BlockDataMeta dataMeta = (BlockDataMeta) stack.getItemMeta();
-        if (dataMeta == null) throw new RuntimeException("When creating itemstack blockdatameta was null dude");
+        final ItemStack item = new ItemStack(Material.NOTE_BLOCK, 1);
+        final BlockDataMeta dataMeta = (BlockDataMeta) item.getItemMeta();
+        if (dataMeta == null) throw new RuntimeException("BlockDataMeta was null for SlimeGrassEarth block");
 
         final NoteBlock noteBlock = (NoteBlock) Bukkit.createBlockData(Material.NOTE_BLOCK);
 
         noteBlock.setNote(this.getNote());
         noteBlock.setInstrument(this.getInstrument());
-        dataMeta.setCustomModelData(100);
+        dataMeta.setCustomModelData(200);
         dataMeta.setBlockData(noteBlock);
-        stack.setItemMeta(dataMeta);
-
-        return stack;
+        item.setItemMeta(dataMeta);
+        return item;
     }
 
     @Override
     public Note getNote() {
-        return new Note(0);
+        return new Note(1);
     }
 
     @Override
     public Integer getBlockDurability() {
-        return 10;
+        return 50;
     }
 
     @Override
     public Instrument getInstrument() {
-        return Instrument.BANJO;
+        return Instrument.SNARE_DRUM;
     }
 
     @Override
     public TinkersBlockType getType() {
-        return TinkersBlockType.COBALT_ORE;
+        return TinkersBlockType.SLIME_EARTH_GRASS_BLOCK;
     }
 
     @Override
@@ -64,11 +62,10 @@ public class CobaltOre implements TinkersBlock {
             return null;
         }
         final ItemMeta meta = stack.getItemMeta();
-        if (!(meta instanceof BlockDataMeta)) {
+        if (!(meta instanceof final BlockDataMeta dataMeta)) {
             Bukkit.broadcastMessage("Data wasnt instance of BDM returning null");
             return null;
         }
-        final BlockDataMeta dataMeta = (BlockDataMeta) meta;
         if (!dataMeta.hasBlockData()) {
             Bukkit.broadcastMessage("Block didnt have meta data, returning null");
             return null;
@@ -83,19 +80,17 @@ public class CobaltOre implements TinkersBlock {
     }
 
     @Override
-    public List<World.Environment> allowedGenerationWorldTypes() {
-        return List.of(World.Environment.NETHER);
-    }
-
-    @Override
-    public final int getRandomVeinCount() {
-        final int maxVeins = 3;
-        final int minVeins = 0;
-        return ThreadLocalRandom.current().nextInt(maxVeins - minVeins) + minVeins;
-    }
-
-    @Override
     public boolean doesNaturallyGenerate() {
-        return true;
+        return false;
+    }
+
+    @Override
+    public List<World.Environment> allowedGenerationWorldTypes() {
+        return null;
+    }
+
+    @Override
+    public int getRandomVeinCount() {
+        return 0;
     }
 }

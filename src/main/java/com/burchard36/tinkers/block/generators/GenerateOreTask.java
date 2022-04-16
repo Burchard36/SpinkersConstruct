@@ -2,7 +2,7 @@ package com.burchard36.tinkers.block.generators;
 
 import com.burchard36.Logger;
 import com.burchard36.tinkers.block.BlockRegistry;
-import com.burchard36.tinkers.block.GenerationUtils;
+import com.burchard36.tinkers.block.BlockGenerationUtils;
 import com.burchard36.tinkers.block.TinkersBlock;
 import org.bukkit.*;
 import org.bukkit.block.Block;
@@ -12,7 +12,6 @@ import org.bukkit.event.world.ChunkLoadEvent;
 import org.bukkit.metadata.FixedMetadataValue;
 
 import java.util.List;
-import java.util.Random;
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.ForkJoinPool;
 
@@ -37,18 +36,7 @@ public class GenerateOreTask implements Listener {
             switch (chunkEnvironment) {
                 case NETHER -> {
                     for (int x = tinkersBlock.getRandomVeinCount(); x --> 0;) {
-                        Logger.log("Pool size: " + ForkJoinPool.commonPool().getPoolSize() + " parallelism: " + ForkJoinPool.commonPool().getParallelism());
-                        Logger.log("Common pool parallelism: " + ForkJoinPool.getCommonPoolParallelism() + " active thread count: " + ForkJoinPool.commonPool().getActiveThreadCount());
-                        Logger.log("Running thread count: " + ForkJoinPool.commonPool().getRunningThreadCount() + " has queue: " + ForkJoinPool.commonPool().hasQueuedSubmissions());
-                        final int poolSize = 1;
-                        CompletableFuture<Block> futureBlock;
-                        if (poolSize > 0) {
-                            Logger.log("Pool size greater than0, running async");
-                             futureBlock = GenerationUtils.getRandomNetherBlock(chunk);
-                        } else {
-                            Logger.log("Pool size is 0, running sync");
-                            futureBlock = GenerationUtils.getRandomNetherBlock(chunk);
-                        }
+                        CompletableFuture<Block> futureBlock = BlockGenerationUtils.getRandomNetherBlock(chunk);
 
                         final Block block = futureBlock.join();
                         if (block != null) {
